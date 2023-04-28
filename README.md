@@ -1,6 +1,5 @@
-# Foobar
+# Home Challenge
 
-Foobar is a Python library for dealing with word pluralization.
 
 ## install requirement
 
