@@ -17,7 +17,7 @@ Download the [data](https://hackmd.io/@freshflow/B16yJrWg9#Input) from this link
 
 The Jupyter Notebook provides an overview of the data and presents various feature engineering techniques to enhance the data quality and enrich the model's input.
 
-## To run the models
+## To train the models
 ### LGB MODEL
 
 ```bash
@@ -30,6 +30,19 @@ python3 train_lgb.py data/data.csv
 python3 train_xgboost.py data/data.csv 
 ```
 
+## To run  the models
+### LGB MODEL
+
+```bash
+python3 prediction_lgb.py data/data.csv  model/lgb_model.bin
+```
+
+### XGBOOST MODEL
+
+```bash
+python3 prediction_xgboost.py data/data.csv  model/xgbost_model.bin
+```
+
 
 ## The output
 
@@ -39,7 +52,7 @@ The model output is the RMSE of the model and the path of saved model
 ## Results
 
 * RMSE for LGB model is : 4.266
-* RMSE for XGBOOST model is  :
+* RMSE for XGBOOST model is  : 4.346
 
 The LGB model is slightly better than the XGBOOST MODEL
 ##  For more information
