@@ -2,13 +2,13 @@ import sys
 import pandas as pd
 import numpy as np
 import pickle
-import lightgbm as lgb
+import xgboost as xgb
 from sklearn.metrics import mean_squared_error
 from preprocessing import preprocessing_data
+
+
 def train_model(path):
-
     # read data from csv
-
 
     print('Load Main Data')
 
@@ -20,23 +20,23 @@ def train_model(path):
     train_data = df[df['date'] < '2021-12-09']
     valid_data = df[df['date'] >= '2021-12-09']
 
-    # Define LightGBM parameters
-    lgb_params = {
-        'objective': 'regression',
-        'metric': 'rmse',
-        'num_leaves': 30,
-        'learning_rate': 0.5,
+    # Define XGBoost parameters
+    xgb_params = {
+        'objective': 'reg:squarederror',
+        'eval_metric': 'rmse',
+        'max_depth': 6,
+        'learning_rate': 0.05,
         'n_estimators': 100
     }
 
-    # Train LightGBM model
-    model = lgb.LGBMRegressor(**lgb_params)
+    # Train XGBoost model
+    model = xgb.XGBRegressor(**xgb_params)
     model.fit(
         train_data.drop(
             ["day", "item_number", "item_name", "unit", "date",
              "sales_quantity"], axis = 1
-            ), train_data['sales_quantity']
-        )
+        ), train_data['sales_quantity']
+    )
 
     # Make predictions on validation set
     print('Training the ')
@@ -44,8 +44,8 @@ def train_model(path):
         valid_data.drop(
             ["day", "item_number", "item_name", "unit", "date",
              'sales_quantity'], axis = 1
-            )
         )
+    )
 
     # Round value
     valid_preds = np.round(valid_preds, decimals = 0)
@@ -55,7 +55,7 @@ def train_model(path):
     mse = mean_squared_error(valid_data['sales_quantity'], valid_preds)
     rmse = mse ** 0.5
 
-    model_name = 'models/lgb_model.bin'
+    model_name = 'models/xgboost_model.bin'
     pickle.dump(model, open(model_name, 'wb'))
     print(f'RMSE: {rmse}')
     print(f'model saved at: {model_name}')
