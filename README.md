@@ -30,7 +30,7 @@ python3 train_xgboost.py data/data.csv
 ```
 
 ## To run  the models
-### LGB MODEL
+### LightGBM MODEL
 
 ```bash
 python3 prediction_lgb.py data/data.csv  model/lgb_model.bin
@@ -50,7 +50,7 @@ The model output is the RMSE of the model and the path of saved model
 
 ## Results
 
-* RMSE for LGB model is : 4.266
+* RMSE for LightGBM model is : 4.266
 * RMSE for XGBOOST model is  : 4.346
 
 The LGB model is slightly better than the XGBOOST MODEL
